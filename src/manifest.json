@@ -1,0 +1,11 @@
+{
+    "manifest_version": 2,
+    "name": "JIRAlogy",
+    "version": "1.0.0",
+    "description": "Converts JIRA ticket IDs to links on github.com/candicontrols/*",
+    "content_scripts": [{
+        "matches":["*://github.com/candicontrols/*", "file://*"],
+        "js": ["jiralogy.js"],
+        "run_at": "document_idle"
+    }]
+}
