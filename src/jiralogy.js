@@ -1,15 +1,10 @@
-/*
 // "inspired by" cloud-to-butt's source
 
 function walk(node) {
-    var child, next;
+    if (!node) return;
     
-    if ((node.tagName && node.classList && node.classList.indexOf) && (node.tagName.toLowerCase() == 'input' || node.tagName.toLowerCase() == 'textarea'
-        || node.classList.indexOf('ace_editor') > -1)) {
-        return;
-    }
+    var child, next;
 
-    console.log(node.nodeType, node);
     switch (node.nodeType) {
         case 1:  // Element
         case 9:  // Document
@@ -22,20 +17,15 @@ function walk(node) {
             }
             break;
         case 3: // Text node
-            console.log("handleText on", node.nodeName, "parent", node.parentNode.nodeName);
             handleText(node);
             break;
     }
 }
 
 function handleText(textNode) {
-    var s = textNode.parentNode.innerHTML.replace(/([A-Z]+-\d+)/g, "<a href=\"http://jira/$1\">$1</a>");
-    console.log("replaced", s, textNode, textNode);
-    textNode.parentNode.innerHTML = s;
+    JIRA_BASE_URL = "http://10.38.0.9:8080/browse/";
+    var n = textNode.parentNode;
+    n.innerHTML = n.innerHTML.replace(/([A-Z]+-\d+)/g, '<a href="' + JIRA_BASE_URL + '$1">$1</a>');
 }
 
-//handleText(document.body);
-*/
-
-document.body.innerHTML = document.body.innerHTML.replace(/([A-Z]+-\d+)/g, "<a href=\"http://jira/$1\">$1</a>");
-console.log("running jiralogy", new Date)
+walk(document.querySelector("p.commit-title"));
